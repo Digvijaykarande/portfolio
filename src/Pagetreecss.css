@@ -1,0 +1,99 @@
+.pagethree{
+    width: 100%;
+    height: 220vh;
+    background: rgb(0 0 0 / 85%);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+}
+.project-section{
+width: 98vw;
+}
+.card{
+    min-width: 245px;
+    height: 222px;
+    display: flex;
+    align-content: center;
+    padding: 6px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(17px) saturate(200%);
+    -webkit-backdrop-filter: blur(17px) saturate(200%);
+    background-color:rgb(240 230 230 / 7%);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+}
+.card-p{
+    color:rgb(255 255 255);
+}
+.project-img{
+    width: 98%;
+    height: 60%;
+    border: none;
+    border-radius: 10px;
+}
+.weblink{
+    text-decoration: none;
+}
+.react-section,.fullstack-section,.api-section{
+    position: relative;
+    margin-top: 5px;
+    margin-left: 3px;
+    width: 100%;
+    min-height: 250px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-evenly;
+    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 2vw;
+}
+.animated-section{
+    position: relative;
+    margin-top: 5px;
+    width: 100%;
+   min-height: 250px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-evenly;
+    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 2vw;
+}
+
+/* scrollbar css */
+.animated-section::-webkit-scrollbar {
+    height:5px;
+}
+.fullstack-section::-webkit-scrollbar {
+    height:5px;
+}
+.api-section::-webkit-scrollbar {
+    height:5px;
+}
+.react-section::-webkit-scrollbar {
+    height:5px;
+}::-webkit-scrollbar-thumb {
+    background: #888;
+}:-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+@media (max-width:500px) {
+    .pagethree{
+        height: 170vh;
+    } 
+}
