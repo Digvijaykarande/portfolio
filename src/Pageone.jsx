@@ -13,14 +13,14 @@ function Pageone() {
       <div className='statictxt'>
         <h1>Hello there 👋</h1>
         <h1>This is  <span style={{color:"#28f7ff"}}>Digvijay</span></h1>
-        <h1 className='fixedtxt'>I am 
+        <h2 className='fixedtxt'>I am 
           <div className='dynamictxt'>
             <h4 className='changingtxt'>Web Developer</h4>
             <h4 className='changingtxt'>React Developer</h4>
             <h4 className='changingtxt'>Backend Developer</h4>
             <h4 className='changingtxt'>Student</h4>
           </div>
-        </h1>
+        </h2>
       </div>
       <br></br>
       {/* download cv */}

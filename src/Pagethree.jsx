@@ -10,7 +10,7 @@ function Pagethree() {
         <div className='project-section'>
 
             {/* React section */}
-            <h2 style={{color:"aqua"}}>React Projects:</h2>
+            <h2 style={{color:"aqua"}}>Frontend Projects:</h2>
             <div className='react-section'>
             <div className='card'>
                     <img src='openchat.PNG'className='project-img'></img>
@@ -91,7 +91,7 @@ function Pagethree() {
             <h2 style={{color:"aqua"}}>My API's :</h2>
             <div className='api-section'>
             <div className='card'>
-                    <img src='excelAnalytics-API.PNG'className='project-img'alt="Coming soon!"></img>
+                    <img src='excelAnalyticsAPI.PNG'className='project-img'alt="Excel Analytics!"></img>
                     <a href='https://excel-analytics-api-3u42.onrender.com/' className="weblink">
                         <p className="card-p">Clean and simple API for Excel analytics designed in MERN Stack. Free and easy to use. You can use the routes like register, login, upload Excel files, view results, and download files etc.. </p></a>
                 </div>
@@ -116,7 +116,7 @@ function Pagethree() {
                     <img src=''className='project-img'alt='Coming soon!'></img>
                      <a href='' className="weblink"><p className="card-p">coming soon!</p></a>
                 </div>
-            </div>
+            </div> 
 
             {/* Animated projects */}
             <h2 style={{color:"aqua"}}>Animated Projects:</h2>

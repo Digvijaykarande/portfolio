@@ -99,9 +99,12 @@ color: #28f7ff;
     text-decoration: none;
 }
 .section2{
+    display: flex;
     width: 250px;
-    height: 80px;
+    height: 87px;
     position: relative;
+    flex-wrap: wrap;
+    align-content: flex-end;
 }
 .f-btns{
     display: flex;

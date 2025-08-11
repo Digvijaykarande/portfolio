@@ -25,11 +25,12 @@ function Pagetwo() {
                 <div className='p-s4'>
                     <h2 style={{color:"aqua"}}>Backend: </h2>
                     <ul>
-                    <li>.Net, </li>
-                    <li>SpringBoot, </li>
-                    <li>PHP, </li>
-                    <li>MongoDB, </li>
-                    <li>MYSQL, </li>
+                    <li>NodeJs </li>
+                    <li>ExpressJs</li>
+                    <li>SpringBoot </li>
+                    <li>PHP </li>
+                    <li>MongoDB </li>
+                    <li>MYSQL </li>
                     </ul>
                 </div>
                 <div className='p-s5'>
