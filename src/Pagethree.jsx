@@ -59,7 +59,7 @@ function Pagethree() {
            {/*  */}
                 <div className='card'>
                     <img src='excelAnalytics.PNG'className='project-img'></img>
-                    <a href='https://excel-analytics-git-main-digvijaykarandes-projects.vercel.app/' className="weblink">
+                    <a href='https://excel-anlytics.netlify.app/' className="weblink">
                     <p className="card-p">
                         Excel Analytics is platform created in MERN Stack. Provide tools to visualize the excel data in bar graph, pie chart, line graph etc.User can download this charts in PNG or JPG format.Also AI integration that summerize the entire excel file in simple and easy words.
                     </p></a>
