@@ -122,7 +122,8 @@ function Pagethree() {
             <h2 style={{color:"aqua"}}>Animated Projects:</h2>
             <div className='animated-section'>
               <div className='card'>
-                    <img src=''className='project-img'alt='Coming soon!'></img>
+                    <img src='https://www.boat-lifestyle.com/cdn/shop/files/Artboard_1_copy_5_dfff0e34-e51c-4d60-befb-46723fbce9cb_1440x.png?v=1755509900'
+                      className='project-img'alt='Coming soon!'></img>
                      <a href='https://digvijaykarande.github.io/boat/' className="weblink"><p className="card-p">Redesigned version of BOAT website with on-scroll animation. 
                      created using GSAP and pure HTML ,CSS and JavaScript.</p></a>
                 </div>
