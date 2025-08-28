@@ -121,6 +121,11 @@ function Pagethree() {
             {/* Animated projects */}
             <h2 style={{color:"aqua"}}>Animated Projects:</h2>
             <div className='animated-section'>
+              <div className='card'>
+                    <img src=''className='project-img'alt='Coming soon!'></img>
+                     <a href='https://digvijaykarande.github.io/boat/' className="weblink"><p className="card-p">Redesigned version of BOAT website with on-scroll animation. 
+                     created using GSAP and pure HTML ,CSS and JavaScript.</p></a>
+                </div>
             <div className='card'>
                     <img src='funta.PNG'className='project-img'></img>
                     <a href='https://digvijaykarande.github.io/animated-funta/' className="weblink">
@@ -131,10 +136,7 @@ function Pagethree() {
                      <a href='https://digvijaykarande.github.io/shoe-house/' className="weblink">
                         <p className="card-p">Shoe's website with animated touch.</p></a>
                 </div>
-                <div className='card'>
-                    <img src=''className='project-img'alt='Coming soon!'></img>
-                     <a href='' className="weblink"><p className="card-p">coming soon!</p></a>
-                </div>
+                
                 <div className='card'>
                     <img src=''className='project-img'alt='Coming soon!'></img>
                      <a href='' className="weblink"><p className="card-p">coming soon!</p></a>
