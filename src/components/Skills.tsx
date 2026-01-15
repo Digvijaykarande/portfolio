@@ -4,10 +4,10 @@ import { useRef } from 'react';
 
 const skills = [
   { name: 'Java', level: 80, category: 'Backend' },
-  { name: 'React', level: 90, category: 'Frontend' },
-  { name: 'JavaScript', level: 95, category: 'Frontend' },
+  { name: 'React', level: 80, category: 'Frontend' },
+  { name: 'JavaScript', level: 85, category: 'Frontend' },
   { name: 'HTML/CSS', level: 95, category: 'Frontend' },
-  { name: 'SpringBoot', level: 95, category: 'Backend' },
+  { name: 'SpringBoot', level: 75, category: 'Backend' },
   { name: 'Node.js', level: 70, category: 'Backend' },
   { name: 'Python', level: 75, category: 'Backend' },
   { name: 'SQL', level: 85, category: 'Database' },

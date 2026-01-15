@@ -30,6 +30,14 @@ const projects = [
     gradient: 'from-neon-pink to-neon-cyan',
   },
   {
+    title: 'Spring Boot E-commerce API',
+    description:'A RESTful API for an e-commerce platform built using Spring Boot. Features include product management, user authentication. The API is designed to be scalable and secure, with comprehensive documentation for easy integration with front-end applications.',
+    tags: ['Spring boot','REST API','MongoDB'],
+    github: 'https://github.com/Digvijaykarande/computer-house-backend-documentation',
+    demo: 'https://digvijaykarande.github.io/computer-house-backend-documentation/',
+    gradient: 'from-neon-blue to-neon-purple',
+  },
+  {
     title: 'IMDB Clone',
     description:'A movie database web application that allows users to search for movies, view details, and watch trailers. Features include user authentication, ratings, and reviews. Integrated with the TMDB API for fetching movie data.',
     tags: ['React','TMDB API'],

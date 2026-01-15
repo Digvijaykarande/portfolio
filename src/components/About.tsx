@@ -72,7 +72,7 @@ const About = () => {
                   I am             </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    Full-stack developer with a BCA background and pursuing MCA (1st Year), skilled in Java, Spring
+                    Full-stack developer with a BCA background and pursuing MCA (1st Year), skilled in Java,Python, Spring
               Boot, React, MySQL, MongoDB, Node.js, and Firebase. Experienced in building scalable, secure, and
             responsive web applications with a focus on clean architecture and optimized performance.
                   </p>
@@ -87,7 +87,7 @@ const About = () => {
                 <div className="mt-8 flex flex-wrap gap-4">
                   <div className="glass-card px-4 py-2 rounded-lg">
                     <span className="text-neon-cyan font-bold text-2xl">Fresher</span>
-                    <p className="text-sm text-muted-foreground">Years Experience</p>
+                    <p className="text-sm text-muted-foreground">Ready To Work</p>
                   </div>
                   <div className="glass-card px-4 py-2 rounded-lg">
                     <span className="text-neon-purple font-bold text-2xl">Full Stack Java Course</span>
