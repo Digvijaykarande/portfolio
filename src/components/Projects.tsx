@@ -4,9 +4,32 @@ import { useRef } from 'react';
 import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+
 const projects = [
   {
+    title: 'DevHub',
+    image: 'images/devhub.png',
+    badge: 'MERN',
+    description: 'A production-style backend in Springboot with frontend in React for a GitHub-like platform built using Spring Boot, MongoDB, and JWT authentication. It supports repository management, file storage, commit history, public repository browsing, user profiles, follow system, and profile image uploads via Cloudinary.',
+    tags: ['React','SpringBoot','MongoDB','Cloudinary'],
+    github: 'https://github.com/Digvijaykarande/github-clone-backend',
+    demo: 'https://devhub-github.netlify.app/',
+    gradient: 'from-neon-cyan to-neon-blue',
+  },
+  {
+    title: 'CivicOne',
+    image: 'images/civicone.png',
+    badge: 'MERN',
+    description: 'Developed a full-stack MERN application to streamline civic issue reporting, utilizingNode.js/Express and MongoDB Atlas for a scalable, modular backend.Implemented Geospatial logic using the Geolocation API and OpenStreetMap (ReverseGeocoding) to automate precise location tagging for reported issues.',
+    tags: ['React','NodeJs','Express','MongoDB'],
+    github: 'https://github.com/Digvijaykarande/civicone2.0',
+    demo: 'civicone20.netlify.app',
+    gradient: 'from-neon-cyan to-neon-blue',
+  },
+  {
     title: 'Chat App',
+    image: 'images/chatapp.png',
+    badge: 'MERN',
     description: 'Developed a real-time chat application supporting group chats and private messaging with secure authentication and role-based authorization.Implemented end-to-end encryption for message privacy.With AI chat Bot integration for automated responses and smart replies.',
     tags: ['React','Firebase'],
     github: 'https://github.com/Digvijaykarande/openchat',
@@ -15,6 +38,8 @@ const projects = [
   },
   {
     title: 'Excel Analytics Dashboard',
+    image: 'images/excelapp.png',
+    badge: 'MERN',
     description:'A web application that allows users to upload Excel files and provides data visualization and analytics features such as charts, graphs, and summary statistics. With AI-powered insights and recommendations based on the uploaded data.',
     tags: ['React','Node.js','Express','MongoDB'],
     github: 'https://github.com/Digvijaykarande/excel-analytics',
@@ -23,22 +48,18 @@ const projects = [
   },
   {
     title: 'Youtube Clone',
+    image: 'images/youtube-clone.png',
+    badge: 'MERN',
     description:'A  YouTube clone application that allows users to browse, search, and watch videos. Features include user authentication, video uploading, commenting, and liking. Integrated with the YouTube Data API for fetching video data.',
     tags: ['Next.js','youtube API'],
     github: 'https://github.com/Digvijaykarande/youtube-clone',
-    demo: 'https://github.com/Digvijaykarande/excel-analytics',
+    demo: 'https://digvijaykarande.github.io/youtube-clone',
     gradient: 'from-neon-pink to-neon-cyan',
   },
   {
-    title: 'Spring Boot E-commerce API',
-    description:'A RESTful API for an e-commerce platform built using Spring Boot. Features include product management, user authentication. The API is designed to be scalable and secure, with comprehensive documentation for easy integration with front-end applications.',
-    tags: ['Spring boot','REST API','MongoDB'],
-    github: 'https://github.com/Digvijaykarande/computer-house-backend-documentation',
-    demo: 'https://digvijaykarande.github.io/computer-house-backend-documentation/',
-    gradient: 'from-neon-blue to-neon-purple',
-  },
-  {
     title: 'IMDB Clone',
+    image: 'images/imdb-clone.png',
+    badge: 'MERN',
     description:'A movie database web application that allows users to search for movies, view details, and watch trailers. Features include user authentication, ratings, and reviews. Integrated with the TMDB API for fetching movie data.',
     tags: ['React','TMDB API'],
     github: 'https://github.com/Digvijaykarande/movieshouse2',
@@ -91,9 +112,27 @@ const Projects = () => {
                 className="group"
               >
                 <div className="glass-card rounded-2xl overflow-hidden h-full flex flex-col">
-                  {/* Project Header with Gradient */}
+
+                  {/* 🖼️ Project Image */}
+                  <div className="relative h-48 overflow-hidden bg-muted">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {/* Overlay badge */}
+                    {project.badge && (
+                      <span className="absolute top-3 right-3 text-xs px-2.5 py-1 rounded-md bg-black/50 text-white backdrop-blur-sm">
+                        {project.badge}
+                      </span>
+                    )}
+                    {/* Bottom gradient fade into card */}
+                    <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-background/60 to-transparent" />
+                  </div>
+
+                  {/* Gradient accent bar */}
                   <div
-                    className={`h-2 bg-gradient-to-r ${project.gradient} opacity-80 group-hover:opacity-100 transition-opacity`}
+                    className={`h-[3px] bg-gradient-to-r ${project.gradient} opacity-80 group-hover:opacity-100 transition-opacity`}
                   />
 
                   <div className="p-6 flex flex-col flex-1">
@@ -111,7 +150,7 @@ const Projects = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="text-muted-foreground text-sm mb-6 flex-1">
+                    <p className="text-muted-foreground text-sm mb-6 flex-1 line-clamp-3">
                       {project.description}
                     </p>
 
@@ -130,23 +169,13 @@ const Projects = () => {
                     {/* Links */}
                     <div className="flex gap-3">
                       <Button variant="ghost" size="sm" asChild>
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2"
-                        >
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                           <Github size={16} />
                           Code
                         </a>
                       </Button>
                       <Button variant="neonOutline" size="sm" asChild>
-                        <a
-                          href={project.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2"
-                        >
+                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                           <ExternalLink size={16} />
                           Live Demo
                         </a>
@@ -166,12 +195,7 @@ const Projects = () => {
             className="text-center mt-12"
           >
             <Button variant="glass" size="lg" asChild>
-              <a
-                href="https://github.com/Digvijaykarande?tab=repositories"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2"
-              >
+              <a href="https://github.com/Digvijaykarande?tab=repositories" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                 <Github size={20} />
                 View All on GitHub
               </a>
