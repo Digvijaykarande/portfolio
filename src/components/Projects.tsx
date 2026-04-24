@@ -33,7 +33,7 @@ const projects = [
     description: 'Developed a real-time chat application supporting group chats and private messaging with secure authentication and role-based authorization.Implemented end-to-end encryption for message privacy.With AI chat Bot integration for automated responses and smart replies.',
     tags: ['React','Firebase'],
     github: 'https://github.com/Digvijaykarande/openchat',
-    demo: 'https://digvijaykarande.github.io/openchat/',
+    demo: 'https://openchatcom.netlify.app/',
     gradient: 'from-neon-cyan to-neon-blue',
   },
   {
