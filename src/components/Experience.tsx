@@ -4,6 +4,14 @@ import { useRef } from 'react';
 import { Briefcase, GraduationCap } from 'lucide-react';
 
 const experiences = [
+   {
+    type: 'Internship',
+    title: 'Full Stack Developer Trainee',
+    company: 'Loyanox,  Pune',
+    period: '2026 June- 2026 Agus',
+    description:
+      'Worked on developing and maintaining web applications using Next.js , React, Node.js, and MongoDB. Collaborated with the team to implement new features and optimize existing code for better performance.',
+  },
     {
     type: 'Education',
     title: 'MCA',
@@ -13,7 +21,7 @@ const experiences = [
       'Master of Computer Applications with specialization in Software Engineering and Project Management. Improving skills in full-stack development and agile methodologies.',
   },
   {
-    type: 'education',
+    type: 'Education',
     title: 'BCA',
     company: 'Shivaji University',
     period: '2022 - 2025',

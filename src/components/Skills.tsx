@@ -5,11 +5,12 @@ import { useRef } from 'react';
 const skills = [
   { name: 'Java', level: 80, category: 'Backend' },
   { name: 'React', level: 80, category: 'Frontend' },
+  { name: 'Nextjs', level: 75, category: 'Frontend' },
   { name: 'JavaScript', level: 85, category: 'Frontend' },
   { name: 'HTML/CSS', level: 95, category: 'Frontend' },
   { name: 'SpringBoot', level: 75, category: 'Backend' },
   { name: 'Node.js', level: 70, category: 'Backend' },
-  { name: 'Python', level: 75, category: 'Backend' },
+  { name: 'Redis', level: 85, category: 'Backend' },
   { name: 'SQL', level: 85, category: 'Database' },
   { name: 'MongoDB', level: 80, category: 'Database' },
   { name: 'Git', level: 70, category: 'Tools' },
@@ -24,6 +25,7 @@ const categoryColors: Record<string, string> = {
   Database: 'from-neon-pink to-neon-cyan',
   DevOps: 'from-neon-blue to-neon-purple',
   Tools: 'from-neon-cyan to-neon-purple',
+  FullStack:'from-neon-green to-neon-blue'
 };
 
 const Skills = () => {
