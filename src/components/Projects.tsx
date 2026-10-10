@@ -53,7 +53,7 @@ const projects = [
     description:'A web application that allows users to upload Excel files and provides data visualization and analytics features such as charts, graphs, and summary statistics. With AI-powered insights and recommendations based on the uploaded data.',
     tags: ['React','Node.js','Express','MongoDB'],
     github: 'https://github.com/Digvijaykarande/excel-analytics',
-    demo: 'https://excel-anlytics.netlify.app/dashboard',
+    demo: 'https://excel-anlytics.netlify.app/',
     gradient: 'from-neon-purple to-neon-pink',
   },
   {
