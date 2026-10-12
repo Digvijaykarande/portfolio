@@ -213,3 +213,9 @@
   background: inherit;
   animation: ping-dot 2s cubic-bezier(0, 0, .2, 1) infinite;
 }
+
+
+::-webkit-scrollbar{
+  width:0px;
+  background:transparent;
+}
