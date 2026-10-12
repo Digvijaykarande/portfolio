@@ -1,126 +1,45 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Code2, Palette, Rocket, Users } from 'lucide-react';
-
-const highlights = [
-  {
-    icon: Code2,
-    title: 'Clean Code',
-    description: 'Writing maintainable, scalable, and efficient code is my passion.',
-  },
-  {
-    icon: Palette,
-    title: 'UI/UX Design',
-    description: 'Creating intuitive interfaces with attention to every detail.',
-  },
-  {
-    icon: Rocket,
-    title: 'Performance',
-    description: 'Optimizing applications for the best user experience.',
-  },
-  {
-    icon: Users,
-    title: 'Backend Development',
-    description: 'developing scalable backend API\'s.',
-  },
+const facts = [
+  { label: "Studying", value: "MCA at Bharati Vidyapeeth IMED, Pune (2025-2027)" },
+  { label: "Completed", value: "BCA at Shivaji University (2022-2025)" },
+  { label: "Trained in", value: "Full Stack Java, Symbiosis Skills & Professional University with Capgemini" },
+  { label: "Worked at", value: "Loyanox, Pune, as a Full Stack Developer Trainee" },
 ];
 
-const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
-  return (
-    <section id="about" className="py-24 relative">
-      <div className="container mx-auto px-6">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="max-w-6xl mx-auto"
-        >
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.2 }}
-              className="text-neon-cyan font-mono mb-2"
-            >
-              Get To Know Me
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3 }}
-              className="text-4xl md:text-5xl font-display font-bold"
-            >
-              About <span className="text-gradient">Me</span>
-            </motion.h2>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Bio */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.4, duration: 0.6 }}
-            >
-              <div className="glass-card p-8 rounded-2xl">
-                <h3 className="text-2xl font-display font-semibold mb-4">
-                  I am             </h3>
-                <div className="space-y-4 text-muted-foreground">
-                  <p>
-                    Full-stack developer with a BCA background and pursuing MCA (1st Year), skilled in Java,Python, Spring
-              Boot, React, MySQL, MongoDB, Node.js, and Firebase. Experienced in building scalable, secure, and
-            responsive web applications with a focus on clean architecture and optimized performance.
-                  </p>
-                  <p>
-                    Developed projects such as real-time chat applications, AI-powered analytics tools, and video streaming platforms.
-                    Passionate about problem-solving, learning emerging technologies, and contributing to innovative
-                    solutions in full-stack Java and MERN environments.
-                  </p>
-                  
-                </div>
-
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <div className="glass-card px-4 py-2 rounded-lg">
-                    <span className="text-neon-cyan font-bold text-2xl">Fresher</span>
-                    <p className="text-sm text-muted-foreground">Ready To Work</p>
-                  </div>
-                  <div className="glass-card px-4 py-2 rounded-lg">
-                    <span className="text-neon-purple font-bold text-2xl">Full Stack Java Course</span>
-                    <p className="text-sm text-muted-foreground">By Symboisis and Capgemini</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Highlights */}
-            <div className="grid sm:grid-cols-2 gap-4">
-              {highlights.map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className="glass-card p-6 rounded-xl group cursor-default"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-neon-cyan/20 to-neon-purple/20 flex items-center justify-center mb-4 group-hover:glow-cyan transition-shadow duration-300">
-                    <item.icon className="w-6 h-6 text-neon-cyan" />
-                  </div>
-                  <h4 className="text-lg font-semibold mb-2">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+const About = () => (
+  <section id="about" className="section">
+    <div className="wrap">
+      <div className="section-head">
+        <h2 className="section-title">About me</h2>
       </div>
-    </section>
-  );
-};
+
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="space-y-5 text-[1.125rem] leading-[1.7] lg:col-span-7" style={{ maxWidth: "40rem" }}>
+          <p>
+            I'm a full-stack developer currently doing an MCA after finishing a BCA. I work mostly in Java and Spring Boot on the
+            backend and React on the front end, with MySQL, MongoDB, Node.js and Firebase when a project calls for them.
+          </p>
+          <p>
+            The things I've built so far are a real-time chat app, an AI-assisted Excel analytics tool, a job board
+            and a GitHub-style code hosting platform. I focus on clean architecture, secure authentication and
+            optimised performance.
+          </p>
+          <p>
+            I'm looking for a first full-stack role in a Java or MERN team where I can keep learning and ship real
+            features.
+          </p>
+        </div>
+
+        <dl className="lg:col-span-5">
+          {facts.map((f) => (
+            <div key={f.label} className="grid gap-1 border-t py-4 sm:grid-cols-[7.5rem_1fr] sm:gap-6" style={{ borderColor: "var(--line)" }}>
+              <dt className="font-semibold">{f.label}</dt>
+              <dd style={{ color: "var(--slate)" }}>{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+);
 
 export default About;

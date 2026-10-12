@@ -1,25 +1,34 @@
-import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Skills from '@/components/Skills';
-import Projects from '@/components/Projects';
-import Experience from '@/components/Experience';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Projects from "@/components/Projects";
+import Skills from "@/components/Skills";
+import Certificates from "@/components/Certificates";
+import Journey from "@/components/Journey";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
-const Index = () => {
-  return (
-    <main className="min-h-screen bg-background overflow-x-hidden">
-      <Navbar />
+const Index = () => (
+  <>
+    <a
+      href="#work"
+      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-full focus:px-4 focus:py-2"
+      style={{ background: "var(--ink)", color: "var(--paper)" }}
+    >
+      Skip to projects
+    </a>
+    <Navbar />
+    <main className="overflow-x-clip">
       <Hero />
       <About />
-      <Skills />
       <Projects />
-      <Experience />
+      <Skills />
+      <Certificates />
+      <Journey />
       <Contact />
-      <Footer />
     </main>
-  );
-};
+    <Footer />
+  </>
+);
 
 export default Index;

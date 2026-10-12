@@ -1,217 +1,124 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-
-
-const projects = [
-  {
-    title: 'DevHub',
-    image: 'images/devhub.png',
-    badge: 'SpringBoot',
-    description: 'A production-style backend in Springboot with frontend in React for a GitHub-like platform built using Spring Boot, MongoDB, and JWT authentication. It supports repository management, file storage, commit history, public repository browsing, user profiles, follow system, and profile image uploads via Cloudinary.',
-    tags: ['React','SpringBoot','MongoDB','Cloudinary'],
-    github: 'https://github.com/Digvijaykarande/github-clone-backend',
-    demo: 'https://devhub-github.netlify.app/',
-    gradient: 'from-neon-cyan to-neon-blue',
-  },
-  {
-    title: 'HireFlow',
-    image: 'images/hireflow.png',
-    badge: 'SpringBoot',
-    description: 'A job board application built with Spring Boot , Redis, MongoDB , JavaMailSender and React featuring user authentication, job listing, and application management. It allows users to create accounts, post job listings, and apply for jobs. The backend is powered by Spring Boot , Redis and MongoDB, while the frontend is built with React. Email notifications and verification are implemented using Spring Boot and JavaMailSender.',
-    tags: ['React','SpringBoot','Spring security','MongoDB','Cloudinary','Redis'],
-    github: 'https://github.com/Digvijaykarande/HireFlow-backend',
-    demo: 'https://hireflow2.netlify.app/jobs',
-    gradient: 'from-neon-cyan to-neon-blue',
-  },
-  {
-    title: 'CivicOne',
-    image: 'images/civicone.png',
-    badge: 'MERN',
-    description: 'Developed a full-stack MERN application to streamline civic issue reporting, utilizingNode.js/Express and MongoDB Atlas for a scalable, modular backend.Implemented Geospatial logic using the Geolocation API and OpenStreetMap (ReverseGeocoding) to automate precise location tagging for reported issues.',
-    tags: ['React','NodeJs','Express','MongoDB'],
-    github: 'https://github.com/Digvijaykarande/civicone2.0',
-    demo: 'https://civicone20.netlify.app/',
-    gradient: 'from-neon-cyan to-neon-blue',
-  },
-  {
-    title: 'Chat App',
-    image: 'images/chatapp.png',
-    badge: 'Firebase',
-    description: 'Developed a real-time chat application supporting group chats and private messaging with secure authentication and role-based authorization.Implemented end-to-end encryption for message privacy.With AI chat Bot integration for automated responses and smart replies.',
-    tags: ['React','Firebase'],
-    github: 'https://github.com/Digvijaykarande/openchat',
-    demo: 'https://openchatcom.netlify.app/',
-    gradient: 'from-neon-cyan to-neon-blue',
-  },
-  {
-    title: 'Excel Analytics Dashboard',
-    image: 'images/excelapp.png',
-    badge: 'MERN',
-    description:'A web application that allows users to upload Excel files and provides data visualization and analytics features such as charts, graphs, and summary statistics. With AI-powered insights and recommendations based on the uploaded data.',
-    tags: ['React','Node.js','Express','MongoDB'],
-    github: 'https://github.com/Digvijaykarande/excel-analytics',
-    demo: 'https://excel-anlytics.netlify.app/',
-    gradient: 'from-neon-purple to-neon-pink',
-  },
-  {
-    title: 'Youtube Clone',
-    image: 'images/youtube-clone.png',
-    badge: 'REACT',
-    description:'A  YouTube clone application that allows users to browse, search, and watch videos. Features include user authentication, video uploading, commenting, and liking. Integrated with the YouTube Data API for fetching video data.',
-    tags: ['Next.js','youtube API'],
-    github: 'https://github.com/Digvijaykarande/youtube-clone',
-    demo: 'https://digvijaykarande.github.io/youtube-clone',
-    gradient: 'from-neon-pink to-neon-cyan',
-  },
-  {
-    title: 'IMDB Clone',
-    image: 'images/imdb-clone.png',
-    badge: 'REACT',
-    description:'A movie database web application that allows users to search for movies, view details, and watch trailers. Features include user authentication, ratings, and reviews. Integrated with the TMDB API for fetching movie data.',
-    tags: ['React','TMDB API'],
-    github: 'https://github.com/Digvijaykarande/movieshouse2',
-    demo: 'https://digvijaykarande.github.io/movieshouse2/',
-    gradient: 'from-neon-blue to-neon-purple',
-  },
-];
+import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ExternalLink, Github, Plus } from "lucide-react";
+import { asset, profile, projects } from "@/data/portfolio";
 
 const Projects = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [open, setOpen] = useState<number | null>(0);
+  const reduce = useReducedMotion();
 
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="container mx-auto px-6">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.2 }}
-              className="text-neon-cyan font-mono mb-2"
-            >
-              My Recent Work
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3 }}
-              className="text-4xl md:text-5xl font-display font-bold"
-            >
-              Featured <span className="text-gradient">Projects</span>
-            </motion.h2>
-          </div>
+    <section id="work" className="section">
+      <div className="wrap">
+        <div className="section-head">
+          <h2 className="section-title">Projects</h2>
+          <p className="section-lede">
+            Seven things I've built and deployed. Open one to see what it does and what it's made with.
+          </p>
+        </div>
 
-          {/* Projects Grid */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
-                className="group"
-              >
-                <div className="glass-card rounded-2xl overflow-hidden h-full flex flex-col">
-
-                  {/* 🖼️ Project Image */}
-                  <div className="relative h-48 overflow-hidden bg-muted">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    {/* Overlay badge */}
-                    {project.badge && (
-                      <span className="absolute top-3 right-3 text-xs px-2.5 py-1 rounded-md bg-black/50 text-white backdrop-blur-sm">
-                        {project.badge}
-                      </span>
-                    )}
-                    {/* Bottom gradient fade into card */}
-                    <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-background/60 to-transparent" />
-                  </div>
-
-                  {/* Gradient accent bar */}
-                  <div
-                    className={`h-[3px] bg-gradient-to-r ${project.gradient} opacity-80 group-hover:opacity-100 transition-opacity`}
-                  />
-
-                  <div className="p-6 flex flex-col flex-1">
-                    {/* Title */}
-                    <div className="flex items-start justify-between mb-4">
-                      <h3 className="text-xl font-display font-semibold group-hover:text-neon-cyan transition-colors">
-                        {project.title}
-                      </h3>
-                      <motion.div
-                        whileHover={{ rotate: 45 }}
-                        className="text-muted-foreground group-hover:text-neon-cyan transition-colors"
+        <ul className="border-b" style={{ borderColor: "var(--ink)" }}>
+          {projects.map((p, i) => {
+            const isOpen = open === i;
+            return (
+              <li key={p.title} className="border-t" style={{ borderColor: i === 0 ? "var(--ink)" : "var(--line)" }}>
+                <h3 className="m-0">
+                  <button
+                    type="button"
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    aria-controls={`project-${i}`}
+                    className="group flex w-full items-center justify-between gap-4 py-5 text-left sm:py-6"
+                  >
+                    <span className="flex min-w-0 flex-col gap-1 md:flex-row md:items-baseline md:gap-6">
+                      <span
+                        className="text-[1.75rem] font-bold leading-tight transition-colors sm:text-4xl"
+                        style={{ letterSpacing: "-0.03em", color: isOpen ? "var(--cobalt)" : "var(--ink)" }}
                       >
-                        <ArrowUpRight size={20} />
-                      </motion.div>
-                    </div>
+                        {p.title}
+                      </span>
+                      <span className="text-[0.95rem] font-normal" style={{ color: "var(--slate)", letterSpacing: 0 }}>
+                        {p.kind}
+                      </span>
+                    </span>
+                    <motion.span
+                      aria-hidden
+                      animate={{ rotate: isOpen ? 45 : 0 }}
+                      transition={{ duration: reduce ? 0 : 0.25 }}
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 transition-colors group-hover:bg-[var(--ink)] group-hover:text-[var(--paper)]"
+                      style={{ borderColor: "var(--ink)" }}
+                    >
+                      <Plus size={20} />
+                    </motion.span>
+                  </button>
+                </h3>
 
-                    {/* Description */}
-                    <p className="text-muted-foreground text-sm mb-6 flex-1 line-clamp-3">
-                      {project.description}
-                    </p>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground"
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      id={`project-${i}`}
+                      initial={reduce ? false : { height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={reduce ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="grid gap-6 pb-8 md:grid-cols-12 md:gap-10">
+                        <div
+                          className="relative aspect-[16/10] overflow-hidden rounded-xl md:col-span-6"
+                          style={{ background: "var(--paper-deep)" }}
                         >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 flex items-center justify-center text-6xl font-extrabold"
+                            style={{ color: "var(--line)", fontFamily: "'Bricolage Grotesque', sans-serif" }}
+                          >
+                            {p.title.slice(0, 2)}
+                          </span>
+                          <img
+                            src={asset(p.image)}
+                            alt={`${p.title} screenshot`}
+                            loading="lazy"
+                            className="relative h-full w-full object-cover object-top"
+                            onError={(e) => (e.currentTarget.style.display = "none")}
+                          />
+                        </div>
 
-                    {/* Links */}
-                    <div className="flex gap-3">
-                      <Button variant="ghost" size="sm" asChild>
-                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                          <Github size={16} />
-                          Code
-                        </a>
-                      </Button>
-                      <Button variant="neonOutline" size="sm" asChild>
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                          <ExternalLink size={16} />
-                          Live Demo
-                        </a>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                        <div className="flex flex-col md:col-span-6">
+                          <p className="text-[1.05rem] font-medium">{p.summary}</p>
+                          <p className="mt-3 leading-relaxed" style={{ color: "var(--slate)" }}>{p.description}</p>
 
-          {/* View More */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.8 }}
-            className="text-center mt-12"
-          >
-            <Button variant="glass" size="lg" asChild>
-              <a href="https://github.com/Digvijaykarande?tab=repositories" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <Github size={20} />
-                View All on GitHub
-              </a>
-            </Button>
-          </motion.div>
-        </motion.div>
+                          <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
+                            {p.tags.map((t) => (
+                              <li key={t} className="tag">{t}</li>
+                            ))}
+                          </ul>
+
+                          <div className="mt-6 flex flex-wrap gap-3">
+                            <a href={p.demo} target="_blank" rel="noopener noreferrer" className="btn btn-solid btn-small">
+                              <ExternalLink size={16} /> Live demo
+                            </a>
+                            <a href={p.github} target="_blank" rel="noopener noreferrer" className="btn btn-line btn-small">
+                              <Github size={16} /> Source code
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </li>
+            );
+          })}
+        </ul>
+
+        <p className="mt-8">
+          More repositories are on{" "}
+          <a href={`${profile.github}?tab=repositories`} target="_blank" rel="noopener noreferrer" className="link-u font-semibold">
+            my GitHub
+          </a>
+          .
+        </p>
       </div>
     </section>
   );

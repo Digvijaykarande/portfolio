@@ -1,129 +1,75 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-
-const skills = [
-  { name: 'Java', level: 80, category: 'Backend' },
-  { name: 'React', level: 80, category: 'Frontend' },
-  { name: 'Nextjs', level: 75, category: 'Frontend' },
-  { name: 'JavaScript', level: 85, category: 'Frontend' },
-  { name: 'HTML/CSS', level: 95, category: 'Frontend' },
-  { name: 'SpringBoot', level: 75, category: 'Backend' },
-  { name: 'Node.js', level: 70, category: 'Backend' },
-  { name: 'Redis', level: 85, category: 'Backend' },
-  { name: 'SQL', level: 85, category: 'Database' },
-  { name: 'MongoDB', level: 80, category: 'Database' },
-  { name: 'Git', level: 70, category: 'Tools' },
-  { name: 'Docker', level: 60, category: 'DevOps' },
-];
-
-const categories = ['Frontend', 'Backend', 'Database', 'DevOps', 'Tools'];
-
-const categoryColors: Record<string, string> = {
-  Frontend: 'from-neon-cyan to-neon-blue',
-  Backend: 'from-neon-purple to-neon-pink',
-  Database: 'from-neon-pink to-neon-cyan',
-  DevOps: 'from-neon-blue to-neon-purple',
-  Tools: 'from-neon-cyan to-neon-purple',
-  FullStack:'from-neon-green to-neon-blue'
-};
+import { useState } from "react";
+import { skillGroups, projectsUsing, type Skill } from "@/data/portfolio";
 
 const Skills = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [picked, setPicked] = useState<Skill | null>(null);
+  const used = picked ? projectsUsing(picked) : [];
+
+  let readout = "Hover or tap a skill to see where I've used it.";
+  if (picked) {
+    if (used.length) readout = `${picked.name} is used in ${used.join(", ")}.`;
+    else if (picked.note) readout = picked.note;
+    else readout = `${picked.name} isn't in a featured project yet.`;
+  }
 
   return (
-    <section id="skills" className="py-24 relative">
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/30 to-transparent" />
+    <section id="skills" className="section" style={{ background: "var(--paper-deep)" }}>
+      <div className="wrap">
+        <div className="section-head">
+          <h2 className="section-title">Skills</h2>
+          <p className="section-lede">
+            The tools I work with, grouped by what they do. Pick one to see which of my projects use it.
+          </p>
+        </div>
 
-      <div className="container mx-auto px-6 relative">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.2 }}
-              className="text-neon-cyan font-mono mb-2"
-            >
-              My Technical Skills
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3 }}
-              className="text-4xl md:text-5xl font-display font-bold"
-            >
-              Skills & <span className="text-gradient">Expertise</span>
-            </motion.h2>
-          </div>
-
-          {/* Skills Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ delay: 0.1 * index, duration: 0.4 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-                className="glass-card p-6 rounded-xl group"
+        <div className="grid gap-x-12 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            {skillGroups.map((g) => (
+              <div
+                key={g.label}
+                className="grid gap-3 border-t py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
+                style={{ borderColor: "var(--line)" }}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold text-foreground">{skill.name}</h3>
-                  <span className="text-sm text-muted-foreground px-2 py-1 bg-muted rounded-md">
-                    {skill.category}
-                  </span>
-                </div>
-
-                {/* Progress Bar */}
-                <div className="relative h-2 bg-muted rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={isInView ? { width: `${skill.level}%` } : {}}
-                    transition={{ delay: 0.3 + index * 0.05, duration: 0.8, ease: 'easeOut' }}
-                    className={`absolute inset-y-0 left-0 rounded-full bg-gradient-to-r ${categoryColors[skill.category]}`}
-                  />
-                </div>
-
-                <div className="mt-2 flex justify-between text-sm">
-                  <span className="text-muted-foreground">Proficiency</span>
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ delay: 0.5 + index * 0.05 }}
-                    className="text-neon-cyan font-medium"
-                  >
-                    {skill.level}%
-                  </motion.span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Category Legend */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-4 mt-12"
-          >
-            {categories.map((category) => (
-              <div key={category} className="flex items-center gap-2">
-                <div
-                  className={`w-3 h-3 rounded-full bg-gradient-to-r ${categoryColors[category]}`}
-                />
-                <span className="text-sm text-muted-foreground">{category}</span>
+                <h3 className="text-lg font-bold" style={{ letterSpacing: "-0.01em", lineHeight: 1.3 }}>{g.label}</h3>
+                <ul className="flex flex-wrap gap-2">
+                  {g.skills.map((s) => {
+                    const on = picked?.name === s.name;
+                    return (
+                      <li key={s.name}>
+                        <button
+                          type="button"
+                          aria-pressed={on}
+                          onMouseEnter={() => setPicked(s)}
+                          onFocus={() => setPicked(s)}
+                          onClick={() => setPicked(on ? null : s)}
+                          className="rounded-full border-2 px-4 py-1.5 font-medium transition-colors"
+                          style={{
+                            borderColor: on ? "var(--cobalt)" : "var(--ink)",
+                            background: on ? "var(--cobalt)" : "transparent",
+                            color: on ? "#fff" : "var(--ink)",
+                          }}
+                        >
+                          {s.name}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+
+          <aside className="mt-8 lg:col-span-4 lg:mt-0">
+            <div className="rounded-2xl p-6 lg:sticky lg:top-24" style={{ background: "var(--card-surface)", border: "2px solid var(--line)" }}>
+              <p className="text-sm font-semibold" style={{ color: "var(--slate)" }}>
+                {picked ? picked.name : "Where I've used it"}
+              </p>
+              <p aria-live="polite" className="mt-2 min-h-[4.5rem] text-[1.1rem] font-medium leading-snug">
+                {readout}
+              </p>
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
   );

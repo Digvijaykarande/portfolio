@@ -1,151 +1,184 @@
-import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { certificates, profile, projects, skillGroups } from "@/data/portfolio";
 
-const Hero = () => {
+const endpoints = ["/about", "/stack", "/projects", "/certificates"] as const;
+type Endpoint = (typeof endpoints)[number];
+
+const buildResponse = (path: Endpoint): unknown => {
+  switch (path) {
+    case "/about":
+      return {
+        name: profile.name,
+        role: profile.role,
+        location: profile.location,
+        education: [
+          "MCA, Bharati Vidyapeeth IMED (2025-2027)",
+          "BCA, Shivaji University (2022-2025)",
+        ],
+        experience: "Full Stack Developer Trainee, Loyanox (Jun-Aug 2026)",
+        openToWork: true,
+      };
+    case "/stack":
+      return Object.fromEntries(
+        skillGroups
+          .filter((g) => g.label !== "Tools and cloud")
+          .map((g) => [g.label.toLowerCase(), g.skills.map((s) => s.name)])
+      );
+    case "/projects":
+      return { count: projects.length, items: projects.map((p) => p.title) };
+    case "/certificates":
+      return { count: certificates.length, items: certificates.map((c) => c.title) };
+  }
+};
+
+/** Colours JSON tokens: keys, strings, numbers. Works on partially typed text. */
+const highlight = (text: string): ReactNode[] => {
+  const re = /("(?:\\.|[^"\\])*")(\s*:)?|("(?:\\.|[^"\\])*$)|\b(true|false|null)\b|(-?\d+(?:\.\d+)?)/g;
+  const out: ReactNode[] = [];
+  let last = 0;
+  let k = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    if (m[1]) {
+      out.push(
+        <span key={k++} style={{ color: m[2] ? "var(--console-key)" : "var(--console-str)" }}>
+          {m[1]}
+        </span>
+      );
+      if (m[2]) out.push(m[2]);
+    } else if (m[3]) {
+      out.push(<span key={k++} style={{ color: "var(--console-str)" }}>{m[3]}</span>);
+    } else {
+      out.push(<span key={k++} style={{ color: "var(--console-num)" }}>{m[4] ?? m[5]}</span>);
+    }
+    last = re.lastIndex;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
+};
+
+const Console = () => {
+  const reduce = useReducedMotion();
+  const [endpoint, setEndpoint] = useState<Endpoint>("/about");
+  const [count, setCount] = useState(0);
+  const firstRun = useRef(true);
+
+  const full = useMemo(() => JSON.stringify(buildResponse(endpoint), null, 2), [endpoint]);
+  const done = count >= full.length;
+
+  useEffect(() => {
+    setCount(0);
+    if (reduce) {
+      setCount(full.length);
+      return;
+    }
+    let interval: ReturnType<typeof setInterval> | undefined;
+    const start = () => {
+      interval = setInterval(() => {
+        setCount((c) => {
+          if (c >= full.length) {
+            if (interval) clearInterval(interval);
+            return c;
+          }
+          return Math.min(c + 4, full.length);
+        });
+      }, 16);
+    };
+    // The very first response waits for the headline to land.
+    const delay = firstRun.current ? 1100 : 120;
+    firstRun.current = false;
+    const t = setTimeout(start, delay);
+    return () => {
+      clearTimeout(t);
+      if (interval) clearInterval(interval);
+    };
+  }, [full, reduce]);
+
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-grid"
+    <div
+      className="overflow-hidden rounded-2xl shadow-[0_24px_60px_-24px_rgba(14,19,32,0.55)]"
+      style={{ background: "var(--console)", color: "var(--console-text)" }}
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-neon-cyan/10 blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-neon-purple/10 blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
+      <div role="tablist" aria-label="API endpoints" className="mono flex gap-1 overflow-x-auto p-2" style={{ background: "rgba(255,255,255,0.05)" }}>
+        {endpoints.map((p) => (
+          <button
+            key={p}
+            role="tab"
+            type="button"
+            aria-selected={endpoint === p}
+            onClick={() => setEndpoint(p)}
+            className="shrink-0 rounded-lg px-3 py-2 text-[0.8rem] transition-colors"
+            style={{
+              background: endpoint === p ? "var(--cobalt)" : "transparent",
+              color: endpoint === p ? "#fff" : "#a9b4cf",
+            }}
+          >
+            GET {p}
+          </button>
+        ))}
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center max-w-4xl mx-auto">
-          {/* Greeting */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-neon-cyan font-mono text-lg mb-4"
-          >
-            Hello I'am
-          </motion.p>
+      <div className="mono flex items-center justify-between gap-3 border-b px-4 py-3 text-[0.78rem]" style={{ borderColor: "rgba(255,255,255,0.08)", color: "#8e9ab8" }}>
+        <span className="truncate">GET {endpoint} HTTP/1.1</span>
+        <span style={{ color: done ? "var(--console-str)" : "#8e9ab8" }}>{done ? "200 OK" : "sending"}</span>
+      </div>
 
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6"
-          >
-            <span className="text-foreground">Digvijay </span>
-            <span className="text-gradient">Karande</span>
-          </motion.h1>
+      <pre className="sr-only">{full}</pre>
+      <pre
+        aria-hidden
+        className="mono m-0 h-[19rem] overflow-auto whitespace-pre p-4 text-[0.8rem] leading-relaxed sm:h-[21rem] sm:text-[0.86rem]"
+      >
+        {highlight(full.slice(0, count))}
+        {!done && <span className="caret" style={{ color: "var(--console-key)" }}>▌</span>}
+      </pre>
+    </div>
+  );
+};
 
-          {/* Role */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-8"
-          >
-            <span className="text-foreground font-semibold">Full Stack Developer</span>
-            <span className="mx-2">|</span>
-            <span>Web Developer</span>
-            <span className="mx-2">|</span>
-            <span>Problem Solver</span>
-          </motion.div>
+const Hero = () => {
+  const reduce = useReducedMotion();
+  const rise = (delay: number) => ({
+    initial: reduce ? false : { y: "108%" },
+    animate: { y: 0 },
+    transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] as const },
+  });
 
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-muted-foreground text-lg max-w-2xl mx-auto mb-10"
-          >
-            I craft beautiful, performant web applications with modern technologies.
-            Passionate about creating something new and useful.
-          </motion.p>
+  return (
+    <section id="home" className="relative flex min-h-[100svh] items-center pb-14 pt-28 lg:pb-20 lg:pt-32">
+      <div className="wrap grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-7">
+          <p className="mb-6 inline-flex items-center gap-3 rounded-full border-2 px-4 py-1.5 text-[0.95rem] font-medium" style={{ borderColor: "var(--line)", background: "var(--card-surface)" }}>
+            <span className="relative inline-block h-2.5 w-2.5 rounded-full ping-dot" style={{ background: "#16a34a" }} />
+            {profile.status}, based in Pune
+          </p>
 
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-wrap items-center justify-center gap-4 mb-12"
-          >
-            <Button variant="neon" size="lg" asChild>
-              <a href="#projects">View Projects</a>
-            </Button>
-            <Button variant="glass" size="lg" asChild>
-              <a href="#contact">Contact Me</a>
-            </Button>
-          </motion.div>
+          <h1 className="hero-name" aria-label={profile.name}>
+            <span className="block overflow-hidden pb-[0.06em]">
+              <motion.span className="block" {...rise(0.05)}>Digvijay</motion.span>
+            </span>
+            <span className="block overflow-hidden pb-[0.06em]">
+              <motion.span className="block" style={{ color: "var(--cobalt)" }} {...rise(0.18)}>Karande</motion.span>
+            </span>
+          </h1>
 
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex items-center justify-center gap-6"
-          >
-            {[
-              { icon: Github, href: 'https://github.com/digvijaykarande', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://linkedin.com/in/digvijay-karande-297b25279', label: 'LinkedIn' },
-              { icon: Mail, href: 'mailto:karandedigvijay2@gmail.com', label: 'Email' },
-            ].map((social, index) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 glass-card rounded-full text-muted-foreground hover:text-neon-cyan transition-colors"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
-              >
-                <social.icon size={24} />
-              </motion.a>
-            ))}
-          </motion.div>
+          <p className="mt-7 max-w-[34rem] text-[1.2rem] leading-relaxed" style={{ color: "var(--slate)" }}>
+            I build full-stack apps with Java, Spring Boot and React: the API, the database and the screen it all ends up on.
+          </p>
+
+          <div className="mt-9 flex flex-wrap gap-3">
+            <a href="#work" className="btn btn-solid">View projects</a>
+            <a href="#contact" className="btn btn-line">Contact me</a>
+          </div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        >
-          <motion.a
-            href="#about"
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-neon-cyan transition-colors"
-          >
-            <span className="text-sm">Scroll Down</span>
-            <ArrowDown size={20} />
-          </motion.a>
-        </motion.div>
+        <div className="lg:col-span-5">
+          <Console />
+          <p className="mt-3 text-sm" style={{ color: "var(--slate)" }}>
+            Pick an endpoint to query my portfolio the way a backend would.
+          </p>
+        </div>
       </div>
     </section>
   );
