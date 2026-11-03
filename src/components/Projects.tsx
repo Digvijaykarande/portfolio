@@ -4,7 +4,7 @@ import { ExternalLink, Github, Plus } from "lucide-react";
 import { asset, profile, projects } from "@/data/portfolio";
 
 const Projects = () => {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
   const reduce = useReducedMotion();
 
   return (
@@ -13,7 +13,7 @@ const Projects = () => {
         <div className="section-head">
           <h2 className="section-title">Projects</h2>
           <p className="section-lede">
-            Seven things I've built and deployed. Open one to see what it does and what it's made with.
+            {projects.length} things I've built and deployed. Open one to see what it does and what it's made with.
           </p>
         </div>
 

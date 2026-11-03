@@ -30,6 +30,18 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "PaperLess",
+    kind: "Spring Boot + Next.js",
+    summary: "A modern, lightning-fast web client for the PaperLess PDF processing platform.",
+    description:
+      "Modern, lightning-fast web client for the PaperLess PDF processing platform. Full PDF Tool Suite: Access all core PDF tools and document conversions in one place. Fully Responsive & Secure: Built with Next.js, Tailwind CSS, shadcn/ui components, and strict CSP headers.",
+    tags: ["Next.js", "Spring Boot", "JWT", "Cloudinary"],
+    github: "https://github.com/Digvijaykarande/PaperLess-frontend",
+    demo: "https://paper-less-frontend.vercel.app/",
+    image: "images/paperless.png",
+  },
+
+  {
     title: "DevHub",
     kind: "Spring Boot + React",
     summary: "A GitHub-style platform for hosting repositories.",
